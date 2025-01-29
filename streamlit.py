@@ -68,7 +68,9 @@ def query_cv_chatbot(question):
 # Step 3: Create the Streamlit app
 st.title("IV Articles Chatbot")
 st.markdown("""
-#Let's get started
+Welcome. 
+This is a chatbot focused on answeting questions related to the IMF Article IV Staff Reports documents. 
+Let's get started
 """)
 
 
