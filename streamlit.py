@@ -3,7 +3,6 @@ import requests
 from io import BytesIO
 from PyPDF2 import PdfReader
 import streamlit as st
-import genai
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
