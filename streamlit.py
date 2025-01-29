@@ -54,43 +54,24 @@ generation_config = {
 model = genai.GenerativeModel(model_name='gemini-1.5-flash', generation_config=generation_config)
 
 cv_prompt = f"""
-You are a CV assistant. You will answer questions based on the CV provided below that belongs to Rafaela Bastidas Ripalda.
+You are a assistant. You will answer questions based on the given article.
 
 {cv_doc}
 """
 
 def query_cv_chatbot(question):
-    prompt = f"Here is a CV. Answer the following question based on the CV:\n\n{cv_prompt}\n\nQuestion: {question}\nAnswer:"
+    prompt = f"Here is an article. Answer the following question based on the article:\n\n{cv_prompt}\n\nQuestion: {question}\nAnswer:"
     response = model.generate_content(prompt)  # Request a response from the model
     generated_answer = response.candidates[0].content.parts[0].text.strip()
     return generated_answer
 
 # Step 3: Create the Streamlit app
-st.title("CV Chatbot: Rafaela Bastidas Ripalda 🌟")
+st.title("IV Articles Chatbot")
 st.markdown("""
-Hello! 👋 I'm the personal chatbot of **Rafaela Bastidas Ripalda**.
-Feel free to ask me anything about her experience, skills, or professional background, and I'll be happy to assist you.  
-If you'd like to take a closer look at her CV, you can find it [here](https://rafaelabastidas.github.io/files/CV.pdf).  
-Let's get started!
+Let's get started
 """)
 
 
-# Dropdown menu for example questions
-st.markdown("### Example Questions:")
-example_question = st.selectbox(
-    "Select a question to see the answer:",
-    [
-        "Select an example question...",
-        "What is Rafaela's educational background?",
-        "What are Rafaela's key skills in data science?",
-        "What programming languages does Rafaela know?",
-    ]
-)
-
-# Display the answer to the selected question
-if example_question != "Select an example question...":
-    answer = query_cv_chatbot(example_question)
-    st.markdown(f"**Answer:** {answer}")
 
 # Input box for custom user questions
 st.markdown("### Or ask your own question:")
