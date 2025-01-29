@@ -68,14 +68,14 @@ def query_cv_chatbot(question):
 # Step 3: Create the Streamlit app
 st.title("IV Articles Chatbot")
 st.markdown("""
-Let's get started
+#Let's get started
 """)
 
 
 
 # Input box for custom user questions
-st.markdown("### Or ask your own question:")
-custom_question = st.text_input("Ask a question about Rafaela's CV (if you prefer to ask a question in spanish, please feel free to do so):")
+st.markdown("### Please ask a question:")
+custom_question = st.text_input("Ask a question about the article:")
 
 # Process the user question
 if custom_question:
