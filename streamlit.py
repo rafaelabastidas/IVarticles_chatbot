@@ -6,10 +6,17 @@ from PyPDF2 import PdfReader
 import google.generativeai as genai
 
 # Step 1: List of document URLs
+#urls = [
+#    "https://www.imf.org/-/media/Files/Publications/CR/2025/English/1nerea2025001-print-pdf.ashx",
+#    "https://www.imf.org/-/media/Files/Publications/CR/2025/English/1zafea2025001-print-pdf.ashx"
+#]
+
 urls = [
-    "https://www.imf.org/-/media/Files/Publications/CR/2025/English/1nerea2025001-print-pdf.ashx",
-    "https://www.imf.org/-/media/Files/Publications/CR/2025/English/1zafea2025001-print-pdf.ashx"
+    "https://github.com/rafaelabastidas/IV-articles/raw/main/1_1zafea2025001-print-pdf.pdf",
+    "https://github.com/rafaelabastidas/IV-articles/raw/main/2_1zafea2025001-print-pdf.pdf"
 ]
+
+https://github.com/rafaelabastidas/IV-articles.git
 
 # Function to extract text from PDFs
 def extract_text_from_url(url):
