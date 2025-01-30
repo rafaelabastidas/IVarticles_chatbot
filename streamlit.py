@@ -16,7 +16,6 @@ urls = [
     "https://github.com/rafaelabastidas/IV-articles/raw/main/2_1zafea2025001-print-pdf.pdf"
 ]
 
-https://github.com/rafaelabastidas/IV-articles.git
 
 # Function to extract text from PDFs
 def extract_text_from_url(url):
