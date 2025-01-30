@@ -1,6 +1,3 @@
-
-#cd "C:/Users/RAFAELAB/OneDrive - Inter-American Development Bank Group/Documents/PBLs/Depth/Code"
-#streamlit run .\streamlit.py
 import streamlit as st
 import requests
 import os
@@ -8,19 +5,31 @@ from io import BytesIO
 from PyPDF2 import PdfReader
 import google.generativeai as genai
 
-# Step 1: Download and extract the CV text
-url = "https://www.imf.org/-/media/Files/Publications/CR/2025/English/1nerea2025001-print-pdf.ashx"
-response = requests.get(url)
+# Step 1: List of document URLs
+urls = [
+    "https://www.imf.org/-/media/Files/Publications/CR/2025/English/1nerea2025001-print-pdf.ashx",
+    "https://www.imf.org/-/media/Files/Publications/CR/2025/English/1zafea2025001-print-pdf.ashx"
+]
 
-with BytesIO(response.content) as pdf_file:
-    reader = PdfReader(pdf_file)
-    cv_text = ""
-    for page in reader.pages:
-        cv_text += page.extract_text()
+# Function to extract text from PDFs
+def extract_text_from_url(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        with BytesIO(response.content) as pdf_file:
+            reader = PdfReader(pdf_file)
+            text = "\n".join([page.extract_text() for page in reader.pages if page.extract_text()])
+        return text
+    else:
+        return ""
 
-# Structure the CV text into sections
+# Extract text from all documents
+all_text = ""
+for url in urls:
+    all_text += extract_text_from_url(url) + "\n\n"
+
+# Structure the extracted text into sections
 sections = {}
-lines = cv_text.split('\n')
+lines = all_text.split('\n')
 
 current_section = None
 for line in lines:
@@ -54,13 +63,13 @@ generation_config = {
 model = genai.GenerativeModel(model_name='gemini-1.5-flash', generation_config=generation_config)
 
 cv_prompt = f"""
-You are a assistant. You will answer questions based on the given article.
+You are an assistant. You will answer questions based on the given documents.
 
 {cv_doc}
 """
 
 def query_cv_chatbot(question):
-    prompt = f"Here is an article. Answer the following question based on the article:\n\n{cv_prompt}\n\nQuestion: {question}\nAnswer:"
+    prompt = f"Here are multiple documents. Answer the following question based on the content:\n\n{cv_prompt}\n\nQuestion: {question}\nAnswer:"
     response = model.generate_content(prompt)  # Request a response from the model
     generated_answer = response.candidates[0].content.parts[0].text.strip()
     return generated_answer
@@ -69,19 +78,15 @@ def query_cv_chatbot(question):
 st.title("IV Articles Chatbot")
 st.markdown("""
 Welcome. 
-This is a chatbot focused on answeting questions related to the IMF Article IV Staff Reports documents. 
-Let's get started
+This is a chatbot focused on answering questions related to the IMF Article IV Staff Reports documents. 
+Let's get started!
 """)
-
-
 
 # Input box for custom user questions
 st.markdown("### Please ask a question:")
-custom_question = st.text_input("Ask a question about the article:")
+custom_question = st.text_input("Ask a question about the articles:")
 
 # Process the user question
 if custom_question:
     custom_answer = query_cv_chatbot(custom_question)
     st.markdown(f"**Answer:** {custom_answer}")
-
-
