@@ -13,7 +13,8 @@ import google.generativeai as genai
 
 urls = [
     "https://github.com/rafaelabastidas/IV-articles/raw/main/1_1zafea2025001-print-pdf.pdf",
-    "https://github.com/rafaelabastidas/IV-articles/raw/main/2_1zafea2025001-print-pdf.pdf"
+    "https://github.com/rafaelabastidas/IV-articles/raw/main/2_1nerea2025001-print-pdf.pdf",
+    "https://github.com/rafaelabastidas/IV-articles/raw/main/3_1khmea2025001-print-pdf.pdf"
 ]
 
 
